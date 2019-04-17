@@ -1,0 +1,18 @@
+# System
+.DS_Store
+
+# Editor
+.vscode
+.idea
+
+# Package Manager
+node_modules
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# Generated
+schema.graphql
