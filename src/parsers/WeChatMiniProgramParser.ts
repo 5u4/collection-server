@@ -6,9 +6,8 @@ export const WeChatMiniProgramParser: IParser = {
     return page.evaluate(() => {
       const name = document.getElementById("activity-name")!.innerText.trim();
 
-      const description = (document.querySelector(
-        "#js_content > p:nth-child(1) > span"
-      ) as HTMLSpanElement).innerText.trim();
+      const description = (document.getElementById("js_content")!
+        .firstElementChild as HTMLElement).innerText.trim();
 
       return { name, description };
     });

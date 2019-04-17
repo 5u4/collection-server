@@ -1,9 +1,13 @@
+import { GitHubGistParser } from "./../parsers/GitHubGistParser";
+import { GitHubParser } from "./../parsers/GitHubParser";
+import { ZhiHuParser } from "./../parsers/ZhiHuParser";
 import { WeChatMiniProgramParser } from "./../parsers/WeChatMiniProgramParser";
 import { JueJinParser } from "../parsers/JueJinParser";
 import { ZhiHuZhuanLanParser } from "../parsers/ZhiHuZhuanLanParser";
 import { parse } from "url";
 import * as puppeteer from "puppeteer";
 import { DefaultParser } from "../parsers/DefaultParser";
+import { ItCodeMonkeyParser } from "../parsers/ItCodeMonkeyParser";
 
 export interface IParser {
   name?: string;
@@ -14,10 +18,14 @@ export interface IParser {
 
 export class Parser {
   private static parsers: { [hostname: string]: IParser } = {
-    "zhuanlan.zhihu.com": ZhiHuZhuanLanParser,
+    default: DefaultParser,
+    "gist.github.com": GitHubGistParser,
+    "github.com": GitHubParser,
+    "www.itcodemonkey.com": ItCodeMonkeyParser,
     "juejin.im": JueJinParser,
     "mp.weixin.qq.com": WeChatMiniProgramParser,
-    default: DefaultParser
+    "www.zhihu.com": ZhiHuParser,
+    "zhuanlan.zhihu.com": ZhiHuZhuanLanParser
   };
 
   static async parse(page: puppeteer.Page) {
