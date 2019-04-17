@@ -1,5 +1,6 @@
 import { InputType, Field } from "type-graphql";
 import { IsNotEmpty, IsUrl } from "class-validator";
+import { UniqueSource } from "../validators/UniqueSource";
 
 @InputType()
 export class EntryInput {
@@ -9,5 +10,6 @@ export class EntryInput {
   @Field()
   @IsNotEmpty()
   @IsUrl()
+  @UniqueSource()
   source: string;
 }
