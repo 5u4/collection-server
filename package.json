@@ -8,7 +8,6 @@
     "class-validator": "^0.9.1",
     "dotenv": "^7.0.0",
     "graphql": "^14.2.1",
-    "html-minifier": "^4.0.0",
     "pg": "^7.10.0",
     "puppeteer": "^1.14.0",
     "reflect-metadata": "^0.1.13",
@@ -18,7 +17,6 @@
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/graphql": "^14.2.0",
-    "@types/html-minifier": "^3.5.3",
     "@types/node": "^11.13.4",
     "@types/puppeteer": "^1.12.3",
     "nodemon": "^1.18.11",
