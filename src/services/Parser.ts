@@ -1,10 +1,10 @@
-import { JueJinParser } from "./JueJin";
-import { ZhiHuZhuanLanParser } from "./ZhihuZhuanlan";
+import { JueJinParser } from "../parsers/JueJinParser";
+import { ZhiHuZhuanLanParser } from "../parsers/ZhiHuZhuanLanParser";
 import { parse } from "url";
 import * as puppeteer from "puppeteer";
-import { DefaultParser } from "./Default";
+import { DefaultParser } from "../parsers/DefaultParser";
 
-export interface Parser {
+export interface IParser {
   name?: string;
   parse: (
     page: puppeteer.Page
@@ -12,7 +12,7 @@ export interface Parser {
 }
 
 export class Parser {
-  private static parsers: { [hostname: string]: Parser } = {
+  private static parsers: { [hostname: string]: IParser } = {
     "zhuanlan.zhihu.com": ZhiHuZhuanLanParser,
     "juejin.im": JueJinParser,
     default: DefaultParser
@@ -24,6 +24,22 @@ export class Parser {
     const parser = this.getParser(hostname);
 
     return { ...(await parser.parse(page)), from: parser.name };
+  }
+
+  static async defaultNameDescriptionParsing(page: puppeteer.Page) {
+    return page.evaluate(() => {
+      const name = document.title.trim();
+
+      const descriptionElement = document.getElementsByName("description");
+
+      if (!descriptionElement || descriptionElement.length < 1) {
+        return { name, description: undefined };
+      }
+
+      const description = (descriptionElement[0] as HTMLMetaElement).content;
+
+      return { name, description };
+    });
   }
 
   private static parseHostName(url: string) {

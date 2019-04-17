@@ -1,4 +1,4 @@
-import { Parser } from "./../parsers/Parser";
+import { Parser } from "../services/Parser";
 import { browser } from "./../server";
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
