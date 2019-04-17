@@ -1,3 +1,4 @@
+import { WeChatMiniProgramParser } from "./../parsers/WeChatMiniProgramParser";
 import { JueJinParser } from "../parsers/JueJinParser";
 import { ZhiHuZhuanLanParser } from "../parsers/ZhiHuZhuanLanParser";
 import { parse } from "url";
@@ -15,6 +16,7 @@ export class Parser {
   private static parsers: { [hostname: string]: IParser } = {
     "zhuanlan.zhihu.com": ZhiHuZhuanLanParser,
     "juejin.im": JueJinParser,
+    "mp.weixin.qq.com": WeChatMiniProgramParser,
     default: DefaultParser
   };
 
