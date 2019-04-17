@@ -1,3 +1,4 @@
+import { JueJinParser } from "./JueJin";
 import { ZhiHuZhuanLanParser } from "./ZhihuZhuanlan";
 import { parse } from "url";
 import * as puppeteer from "puppeteer";
@@ -13,6 +14,7 @@ export interface Parser {
 export class Parser {
   private static parsers: { [hostname: string]: Parser } = {
     "zhuanlan.zhihu.com": ZhiHuZhuanLanParser,
+    "juejin.im": JueJinParser,
     default: DefaultParser
   };
 
