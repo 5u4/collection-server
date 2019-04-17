@@ -8,8 +8,10 @@
     "class-validator": "^0.9.1",
     "dotenv": "^7.0.0",
     "graphql": "^14.2.1",
+    "pg": "^7.10.0",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^0.17.1"
+    "type-graphql": "^0.17.1",
+    "typeorm": "^0.2.16"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
