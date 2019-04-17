@@ -4,7 +4,7 @@ import * as puppeteer from "puppeteer";
 import { DefaultParser } from "./Default";
 
 export interface Parser {
-  name: string;
+  name?: string;
   parse: (
     page: puppeteer.Page
   ) => Promise<{ name: string; description: string | undefined }>;
@@ -21,7 +21,7 @@ export class Parser {
 
     const parser = this.getParser(hostname);
 
-    return parser(page);
+    return { ...(await parser.parse(page)), from: parser.name };
   }
 
   private static parseHostName(url: string) {
@@ -30,9 +30,9 @@ export class Parser {
 
   private static getParser(hostname: string | undefined) {
     if (!hostname || !(hostname in this.parsers)) {
-      return this.parsers.default.parse;
+      return this.parsers.default;
     }
 
-    return this.parsers[hostname].parse;
+    return this.parsers[hostname];
   }
 }

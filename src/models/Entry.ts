@@ -18,6 +18,10 @@ export class Entry extends BaseEntity {
   @Field()
   source: string;
 
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  from?: string;
+
   @Column("text", { nullable: true })
   @Field({ nullable: true })
   description?: string;
@@ -28,11 +32,12 @@ export class Entry extends BaseEntity {
     const page = await browser.newPage();
     await page.goto(this.source);
 
-    const { name, description } = await Parser.parse(page);
+    const { name, description, from } = await Parser.parse(page);
     if (this.name === undefined) {
       this.name = name;
     }
     this.description = description;
+    this.from = from;
 
     await page.close();
   }

@@ -1,7 +1,7 @@
 import { Parser } from "./Parser";
 
 export const ZhiHuZhuanLanParser: Parser = {
-  name: "ZhiHuZhuanLan",
+  name: "知乎专栏",
   parse: async page => {
     return page.evaluate(() => {
       const name = document.title.replace("- 知乎", "").trim();
