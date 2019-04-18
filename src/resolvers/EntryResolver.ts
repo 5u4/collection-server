@@ -2,15 +2,23 @@ import { Query, Resolver, Mutation, Arg } from "type-graphql";
 import { Entry } from "../models/Entry";
 import { EntryInput } from "../inputs/EntryInput";
 import { PaginationInput } from "../inputs/PaginationInput";
+import { EntryFilter } from "../inputs/EntryFilter";
 
 @Resolver()
 export class EntryResolver {
   @Query(returns => [Entry])
   async entries(
+    @Arg("filter", { defaultValue: new EntryFilter() })
+    entryFilter: EntryFilter,
     @Arg("pagination", { defaultValue: new PaginationInput() })
     pagination: PaginationInput
   ) {
-    return Entry.find({ skip: pagination.offset, take: pagination.limit });
+    const queryBuilder = Entry.createQueryBuilder("post");
+
+    entryFilter.buildQuery(queryBuilder);
+    pagination.buildQuery(queryBuilder);
+
+    return queryBuilder.getMany();
   }
 
   @Mutation(returns => Entry)

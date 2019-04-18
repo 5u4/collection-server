@@ -1,5 +1,7 @@
+import { Entry } from "./../models/Entry";
 import { Max, Min } from "class-validator";
 import { Field, InputType, Int } from "type-graphql";
+import { SelectQueryBuilder } from "typeorm";
 
 @InputType()
 export class PaginationInput {
@@ -8,12 +10,12 @@ export class PaginationInput {
 
   @Field(returns => Int, { defaultValue: PaginationInput.DEFAULT_PAGE })
   @Min(1)
-  page: number;
+  page: number = PaginationInput.DEFAULT_PAGE;
 
   @Field(returns => Int, { defaultValue: PaginationInput.DEFAULT_PERPAGE })
   @Min(1)
   @Max(50)
-  perPage: number;
+  perPage: number = PaginationInput.DEFAULT_PERPAGE;
 
   get limit() {
     return this.perPage;
@@ -21,5 +23,9 @@ export class PaginationInput {
 
   get offset() {
     return (this.page - 1) * this.perPage;
+  }
+
+  buildQuery(queryBuilder: SelectQueryBuilder<Entry>) {
+    queryBuilder.skip(this.offset).take(this.limit);
   }
 }

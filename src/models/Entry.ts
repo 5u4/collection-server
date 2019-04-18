@@ -34,10 +34,10 @@ export class Entry extends BaseEntity {
 
     const { name, description, from } = await Parser.parse(page);
     if (this.name === undefined) {
-      this.name = name;
+      this.name = name.toLowerCase();
     }
-    this.description = description;
-    this.from = from;
+    this.description = description ? description.toLowerCase() : undefined;
+    this.from = from ? from.toLowerCase() : undefined;
 
     await page.close();
   }
