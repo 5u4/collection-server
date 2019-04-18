@@ -30,7 +30,7 @@ export class Entry extends BaseEntity {
     this.source = this.source.trim();
 
     const page = await browser.newPage();
-    await page.goto(this.source);
+    await page.goto(this.source, { waitUntil: "networkidle0" });
 
     const { name, description, from } = await Parser.parse(page);
     if (this.name === undefined) {

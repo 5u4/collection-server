@@ -1,3 +1,4 @@
+import { YouTubeParser } from "./../parsers/YouTubeParser";
 import { GitHubGistParser } from "./../parsers/GitHubGistParser";
 import { GitHubParser } from "./../parsers/GitHubParser";
 import { ZhiHuParser } from "./../parsers/ZhiHuParser";
@@ -24,6 +25,7 @@ export class Parser {
     "www.itcodemonkey.com": ItCodeMonkeyParser,
     "juejin.im": JueJinParser,
     "mp.weixin.qq.com": WeChatMiniProgramParser,
+    "www.youtube.com": YouTubeParser,
     "www.zhihu.com": ZhiHuParser,
     "zhuanlan.zhihu.com": ZhiHuZhuanLanParser
   };
