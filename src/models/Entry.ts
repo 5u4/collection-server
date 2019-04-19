@@ -1,7 +1,7 @@
 import { Parser } from "../services/Parser";
 import { browser } from "./../server";
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity } from "typeorm";
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field, ID, Int } from "type-graphql";
 
 @Entity()
 @ObjectType()
@@ -25,6 +25,10 @@ export class Entry extends BaseEntity {
   @Column("text", { nullable: true })
   @Field({ nullable: true })
   description?: string;
+
+  @Column("integer")
+  @Field(returns => Int)
+  createdAt: number = (Date.now() / 1000) | 0;
 
   async crawlSite() {
     this.source = this.source.trim();
