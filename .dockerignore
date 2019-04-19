@@ -10,11 +10,3 @@ node_modules
 
 # Logs
 *.log
-
-# Environment
-.env
-.env-E
-.env.backup
-
-# Generated
-schema.graphql

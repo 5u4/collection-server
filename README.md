@@ -1,11 +1,29 @@
 # Dictionary
 
-## Setup
+## Development
 
-Create a postgres database in docker
+**Setup**
 
 ```bash
-docker run --name dictionary_postgres -p 5432:5432 \
-    -e POSTGRES_USER=dictionary -e POSTGRES_PASSWORD=dictionary \
-    -e POSTGRES_DB=dictionary -d postgres:alpine
+yarn setup:dev
+```
+
+**Start server**
+
+```bash
+yarn dev
+```
+
+## Production
+
+**Setup**
+
+```bash
+yarn setup:prod --password <database-password>
+```
+
+**Start server**
+
+```bash
+docker-compose up
 ```
