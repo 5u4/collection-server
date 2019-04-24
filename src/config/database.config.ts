@@ -12,6 +12,7 @@ export const database: { [env in "default" | "testing"]: ConnectionOptions } = {
     database: process.env.DB_NAME || "dictionary",
     dropSchema: false,
     synchronize: true,
+    logging: true,
     entities
   },
   testing: {

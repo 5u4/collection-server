@@ -20,9 +20,11 @@ export class EntryFilter {
       return;
     }
 
-    const name = `%${this.keyword.toLowerCase()}%`;
-    queryBuilder
-      .where("post.name LIKE :name", { name })
-      .orWhere("post.description LIKE :name", { name });
+    const searchTerm = `%${this.keyword.replace(/[\t\n\v\f\r ]/g, "%")}%`;
+
+    queryBuilder.orWhere(`post.name ILIKE :name`, { name: searchTerm });
+    queryBuilder.orWhere(`post.description ILIKE :description`, {
+      description: searchTerm
+    });
   }
 }
