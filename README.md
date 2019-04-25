@@ -1,4 +1,8 @@
-# Dictionary
+<p align="center"><img src="img/collection.png" width="30%"></p>
+
+# Collection
+
+The project uses [docker](https://www.docker.com/) in development and production.
 
 ## Development
 

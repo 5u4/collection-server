@@ -3,8 +3,8 @@ app_key=$(head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c 24; echo '')
 
 # Postgres default variables
 postgres_host="database"
-postgres_username="dictionary"
-postgres_database="dictionary"
+postgres_username="collection"
+postgres_database="collection"
 postgres_port=5432
 printpass=0
 

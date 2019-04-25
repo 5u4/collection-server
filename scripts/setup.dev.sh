@@ -2,11 +2,11 @@
 app_key=$(head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c 24; echo '')
 
 # Postgres default variables
-postgres_container="dictionary.development"
+postgres_container="collection.development"
 postgres_host="0.0.0.0"
-postgres_username="dictionary"
-postgres_password="dictionary"
-postgres_database="dictionary"
+postgres_username="collection"
+postgres_password="collection"
+postgres_database="collection"
 postgres_port=23428
 
 # Set variables from command line
