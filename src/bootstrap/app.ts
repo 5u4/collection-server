@@ -21,13 +21,17 @@ export const build = async () => {
   return new ApolloServer({
     schema,
     tracing: !isProduction,
+    cors: {
+      origin: config.app.origin,
+      credentials: true
+    },
     playground: isProduction
       ? false
       : (config.graphql.playground.settings as any),
-    context: ({ req }) => {
+    context: ({ req, res }) => {
       const s = /^permit=[\w-]*/.exec(req.headers.cookie);
       const permit = s ? s.toString().substr(7) : undefined;
-      return { permit } as Context;
+      return { permit, res } as Context;
     }
   });
 };
