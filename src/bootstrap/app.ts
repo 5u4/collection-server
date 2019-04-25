@@ -1,12 +1,16 @@
+import { Context } from "./../interfaces/Context";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";
 
 import { config } from "../config/config";
+import { auth } from "../middlwares/auth";
 
 export const createSchema = async () =>
   buildSchema({
     resolvers: config.graphql.resolver.paths,
-    emitSchemaFile: config.graphql.schema.emitPath
+    emitSchemaFile: config.graphql.schema.emitPath,
+    authChecker: auth,
+    authMode: "null"
   });
 
 export const build = async () => {
@@ -17,10 +21,14 @@ export const build = async () => {
   return new ApolloServer({
     schema,
     tracing: !isProduction,
-
     playground: isProduction
       ? false
-      : (config.graphql.playground.settings as any)
+      : (config.graphql.playground.settings as any),
+    context: ({ req }) => {
+      const s = /^permit=[\w-]*/.exec(req.headers.cookie);
+      const permit = s ? s.toString().substr(7) : undefined;
+      return { permit } as Context;
+    }
   });
 };
 

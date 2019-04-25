@@ -1,4 +1,4 @@
-import { Query, Resolver, Mutation, Arg } from "type-graphql";
+import { Query, Resolver, Mutation, Arg, Authorized } from "type-graphql";
 import { Entry } from "../models/Entry";
 import { EntryInput } from "../inputs/EntryInput";
 import { PaginationInput } from "../inputs/PaginationInput";
@@ -21,6 +21,7 @@ export class EntryResolver {
     return queryBuilder.getMany();
   }
 
+  @Authorized()
   @Mutation(returns => Entry)
   async addEntry(@Arg("entryInput") entryInput: EntryInput) {
     const entry = Entry.create({

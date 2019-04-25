@@ -1,3 +1,6 @@
+# App default variables
+app_key=$(head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c 24; echo '')
+
 # Postgres default variables
 postgres_host="database"
 postgres_username="dictionary"
@@ -35,6 +38,7 @@ fi
 cp -f .env.example .env
 
 # Update postgres database config
+sed -i -E "s/^APP_KEY=$/APP_KEY=$app_key/" .env
 sed -i -E "s/^DB_HOST=$/DB_HOST=$postgres_host/" .env
 sed -i -E "s/^DB_PORT=$/DB_PORT=$postgres_port/" .env
 sed -i -E "s/^DB_USER=$/DB_USER=$postgres_username/" .env
@@ -55,6 +59,9 @@ if [ -e .env.backup ]
 then
 mv -f .env.backup .env
 fi
+
+echo App Key:
+echo $app_key
 
 # Print password
 if [ $printpass -eq 1 ]
